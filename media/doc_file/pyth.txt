@@ -1,0 +1,12 @@
+1.pip install pipenv
+2.insatll heroku cli and login to it (heroku login)
+3.create virtual envirmnet (virtualenv .) 
+4.activate virtual env :(.\Scripts\activate)
+
+
+
+
+
+10.use this command to push (heroku git:remote -a pythonboard
+)
+11. git push heroku master

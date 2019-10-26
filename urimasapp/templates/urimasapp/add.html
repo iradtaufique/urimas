@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .card-header{
+               background-color:#006991;
+
+        }
+
+    </style>
+</head>
+<body>
+
+{% block body %}
+    <div class="card">
+        <div class="card-header" style="background-color:#006991;">
+
+            {% with url_name=request.resolver_match.url_name  %}
+              {% if url_name == 'add_category' %}
+            <h6 class="text-white">Add Category</h6>
+                {% elif url_name == 'add_department' %}
+            <h6 class="text-white">Add Department</h6>
+            {% elif url_name == 'add_role' %}
+            <h6 class="text-white">Add Role</h6>
+
+            {% elif url_name == 'add_transport' %}
+            <h6 class="text-white">Add Transport</h6>
+
+            {% elif url_name == 'add_school' %}
+            <h6 class="text-white">Add School</h6>
+
+              {% endif %}
+            {% endwith %}
+        </div>
+        <div class="card-body">
+                <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <button type="submit" class="btn  btnlogin text-white">Submit</button>
+                </form>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

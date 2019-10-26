@@ -1,0 +1,92 @@
+
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.db.models import Count
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import CreateView, ListView, UpdateView
+
+
+from ..forms import SupervisorRoleForm, StaffSignUpForm
+from ..models import Mission, Staff, User
+
+
+class SupervisorSignUpView(CreateView):
+    model = User
+    form_class = StaffSignUpForm
+    template_name = 'registration/signup_form.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'supervisor'
+        return super().get_context_data(**kwargs)
+
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('mission_list')
+
+
+class SuperVisorRoleView(UpdateView):
+    model = Staff
+    form_class = SupervisorRoleForm
+    template_name = 'urimastestapp/supervisor/role_form.html'
+
+    success_url = reverse_lazy('mission_list')
+
+    def get_object(self):
+        return self.request.user.staff
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+class MissionListView(ListView):
+    model = Mission
+    ordering = ('mission_purpose', )
+    context_object_name = 'missions'
+    template_name = 'urimastestapp/supervisor/mission_list.html'
+
+    def get_queryset(self):
+        staff = self.request.user.staff
+        staff_role = staff.role.values_list('pk', flat=True)
+        taken_missions = staff.missions.values_list('pk', flat=True)
+        queryset = Mission.objects.filter(role__in=staff_role) \
+
+        return queryset
+
+============================================================================================
+
+forms.py
+
+
+
+class SupervisorSignUpForm(UserCreationForm):
+    role = forms.ModelMultipleChoiceField(
+        queryset=Role.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True
+    )
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+
+    def save(self):
+        user = super().save(Commit=False)
+        user.is_supervisor =True
+        user.save()
+        staff = Staff.objects.create(user=user)
+        staff.role.add(*self.cleaned_data.get('role'))
+        return user
+
+
+
+class SupervisorRoleForm(forms.ModelForm):
+    class Meta:
+        model = Staff
+        fields = ('role',)
+        widgets = {
+            'role': forms.CheckboxSelectMultiple
+        }

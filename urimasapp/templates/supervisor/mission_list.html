@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div class="card">
+  <div class="card-header" style="background-color:#006991;">
+    <h5 class="text-white" >Mission List</h5>
+  </div>
+
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Mission Purpose</th>
+          <th>Requester</th>
+          <th>Role</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mission in missions %}
+          <tr>
+            <td class="align-middle">{{ mission.mission_purpose }}</td>
+            <td class="align-middle">{{ mission.owner }}</td>
+            <td class="align-middle">{{ mission.role }}</td>
+            <td class="align-middle">{{ mission.date }}</td>
+            <td class="align-middle">{{ mission.status }}</td>
+            <td class="text-right">
+
+              <a href="{% url 'invitation' mission.id %}" class="btn btnlogin text-white">View</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="4">No Mission Requested!.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+  <!--<div class="card">-->
+    <!--<table class="table mb-0">-->
+      <!--<thead>-->
+        <!--<tr>-->
+          <!--<th>Mission Purpose</th>-->
+          <!--<th>Requester</th>-->
+          <!--<th>Role</th>-->
+          <!--<th>Date</th>-->
+          <!--<th></th>-->
+        <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+        <!--{% for mission in missions %}-->
+          <!--<tr>-->
+            <!--<td class="align-middle">{{ mission.mission_purpose }}</td>-->
+            <!--<td class="align-middle">{{ mission.owner }}</td>-->
+            <!--<td class="align-middle">{{ mission.role }}</td>-->
+            <!--<td class="align-middle">{{ mission.date }}</td>-->
+            <!--<td class="align-middle">{{ mission.status }}</td>-->
+            <!--<td class="text-right">-->
+              <!--<a href="{%url 'invitation' mission.id %}" class="btn btnlogin text-white">View</a>-->
+            <!--</td>-->
+          <!--</tr>-->
+        <!--{% empty %}-->
+          <!--<tr>-->
+            <!--<td class="bg-light text-center font-italic" colspan="4">No Mission Requested!.</td>-->
+          <!--</tr>-->
+        <!--{% endfor %}-->
+      <!--</tbody>-->
+    <!--</table>-->
+  <!--</div>-->
+{% endblock %}

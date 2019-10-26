@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">{{user.username}}</li>
+      <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'mission_request' %}">view your mission</a></li>
+    </ol>
+  </nav>
+
+{% endblock %}

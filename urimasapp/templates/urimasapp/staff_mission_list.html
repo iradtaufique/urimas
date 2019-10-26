@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+     {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show " role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+
+
+   <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">{{user.username}}</li>
+      </ol>
+   </nav>
+
+
+<div class="card ">
+  <div class="card-header" style="background-color:#006991;">
+    <h5 class="text-white" >Mission List</h5>
+  </div>
+
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Mission Purpose</th>
+          <!--<th>SuperVisor</th>-->
+          <th>Status</th>
+          <th>Date</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mission in missions %}
+
+            <tr>
+              <td class="align-middle"> {{ mission.mission_purpose }} </td>
+              <!--<td class="align-middle">{{ mission.supervisor }}</td>-->
+              <td class="align-middle">{{ mission.status }}</td>
+              <td class="align-middle">{{ mission.date }}</td>
+              <td class="text-right">
+                  {% if mission.status == 'Authorized'%}
+              <a href="{% url 'pdf' mission.id %}" class="btn btnlogin text-white">Print</a>
+                  {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td class="bg-light text-center font-italic" colspan="5">You haven't Requested any mission yet. click on <b>request mission</b> on the left side to request mission.</td>
+            </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

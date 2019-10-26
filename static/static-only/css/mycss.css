@@ -1,0 +1,33 @@
+.urnav{
+      background-color: #006991;
+      }
+
+
+/* ---------------------------------------------------
+    STYLE FOR LOGIN FORM AND ALL ITS ELEMENTS
+----------------------------------------------------- */
+form .alert ul li{
+           list-style:none
+        }
+
+        form .alert ul{
+           margin:0;
+           padding:0
+        }
+        .btnlogin{
+
+           background-color: #006991;
+        }
+        .urnav{
+           background-color: #006991;
+           }
+        img{
+          height:86px;
+          width:86px;
+          }
+
+
+
+
+
+

@@ -1,0 +1,4 @@
+django 
+
+netninja 1-5.
+pluralsites 1-5(in playlist apps and models)

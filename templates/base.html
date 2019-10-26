@@ -1,0 +1,228 @@
+<!doctype html>
+{%load static%}
+ <html lang="en">
+   <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link href="{%static 'css/mycss.css'%}" rel="stylesheet">
+        <title>{%block title%}URMASFinal{%endblock%} </title>
+
+
+           <link href="https://fonts.googleapis.com/css?family=Amiri&display=swap" rel="stylesheet">
+          <!------------------------------------------------------------->
+          <!------------------------------------------------------------->
+       <style>
+
+          body{
+            font-family: 'Amiri', serif;
+          }
+          .sid a:hover {
+            color: #fff;
+            background-color:#006991;
+          }
+          .sid a{
+            color:black;
+            text-decoration:none;
+          }
+         .list-group-item:last-child {
+            margin-bottom: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+         }
+
+         .list-group-item:first-child {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+         }
+
+         #sid{
+            position:fixed;
+            height:100%;
+            background: #E8F0FE;
+         }
+
+         .marginright{
+
+           margin-right:50px;
+         }
+
+
+         .btn-primary {
+          color: #fff;
+          background-color: #006991;
+          border-color: #006991;
+               }
+
+          @media screen and (max-width: 575.98px){
+                 #sid{
+                      position:fixed;
+                      height:100%;
+                      width:7em;
+                      background-color:#f8f9fa;}
+
+
+                 .table{
+                   width:20%; }
+
+                 .report-card{
+                    margin-left:50px;
+                    width:80%;
+                    }
+                   }
+
+
+
+          @media screen and (min-width: 576px){
+                         #sid{
+                            position:fixed;
+                            height:100%;
+                            width:8.5em;
+                            background-color:#f8f9fa;
+                            }
+
+                         .report-card{
+                         width:50%;
+                         margin-left:20%;
+                         }
+                     }
+
+
+          @media screen and (min-width: 768px){
+                         #sid{
+                            position:fixed;
+                            height:100%;
+                            background-color:#f8f9fa;
+                            width:11.5em;
+                            }
+
+                         .report-card{
+                         width:50%;
+                         margin-left:20%;
+                         }
+                      }
+
+          @media screen and (min-width: 992px){
+                         #sid{
+                            position:fixed;
+                            height:100%;
+                            width:15em;
+                            background-color:#f8f9fa;
+                         }
+                         .report-card{
+                         width:50%;
+                         margin-left:20%;
+                         }
+                       }
+
+
+          @media screen and (min-width: 1200px){
+                         #sid{
+                            position:fixed;
+                            height:100%;
+                            width:18.4em;
+                            background-color:#f8f9fa;
+                         }
+                         .report-card{
+                         width:50%;
+                         margin-left:20%;
+                         }
+                      }
+
+
+
+       <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Tangerine">
+
+        </style>
+
+
+
+
+        <!------------------------------------------------------------->
+        <!------------------------------------------------------------->
+   </head>
+      <body>
+
+          <nav class="navbar navbar-expand-lg fixed-top  navbar-light urnav">
+             <div class="container">
+                 <a class="navbar-brand text-white" href="#">URIMAS</a>
+
+                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                   <span class="navbar-toggler-icon"></span>
+                 </button>
+
+                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                 <!-- Profile notifications and logout -->
+                 {%if user.is_authenticated %}
+                    <ul class="navbar-nav ml-auto">
+                       <li class="nav-item dropdown mx-1">
+                          <a href="#" class="nav-link text-white " style="display:inline"> Notification<span class="badge badge-danger ml-2">{% block notification%}{% endblock %}</span></a>
+                       </li>
+                       <li class="nav-item dropdown no-arrow mx-1">
+                          <a href="#" class="nav-link text-white" style="display:inline">{{user.username}}</a>
+                       </li>
+                       <li class="nav-item dropdown no-arrow mx-1">
+                          <a href="{%url 'logout'%}" class="nav-link text-white" style="display:inline">Logout</a>
+                       </li>
+                    </ul>
+                 {%endif%}
+                 </div>
+             </div>
+          </nav>
+
+         {%if user.is_authenticated%}
+            <div class="row mt-5">
+
+                <div class="col-2">
+                   <div class="list-group" id="sid" >
+                      <div class="sid"><a  class="list-group-item "  href="{% url 'mission_request'%}">Dashboard</a></div>
+                      <div class="sid"><a class="list-group-item "  href="{% url 'mission_add' %}">Request Mission</a></div>
+                      <div class="sid"><a class="list-group-item"  href="{% url 'mission_request'%}">View status</a></div>
+                      <div class="sid"><a class="list-group-item"  href="{% url 'report'%}" >Report</a></div>
+
+                      {% if user.is_authenticated and user.is_supervisor %}
+                        <div class="sid"><a class="list-group-item"  href="{% url 'super_mission_list' %}" >Approve</a></div>
+                      {% endif %}
+
+
+                       {% if user.is_authenticated and user.is_authorizer %}
+                        <div class="sid"><a class="list-group-item"  href="{% url 'author_mission_list' %}" >Authorize</a></div>
+                       {% endif %}
+
+                      {%if user.is_authenticated and user.username == 'Admin' %}
+                        <div class="sid"><a class="list-group-item"  href="{%url 'staff_signup'%}" >Add User</a></div>
+                        <div class="sid"><a class="list-group-item"  href="{%url 'add_category' %}" >Add Category</a></div>
+                        <div class="sid"><a class="list-group-item"  href="{%url 'add_department' %}" >Add Department</a></div>
+                        <div class="sid"><a class="list-group-item"  href="{%url 'add_role' %}" >Add Role</a></div>
+                        <div class="sid"><a class="list-group-item"  href="{%url 'add_school' %}" >Add School</a></div>
+                        <div class="sid"><a class="list-group-item"  href="{%url 'add_transport' %}" >Add Transport</a></div>
+                      {% endif %}
+                   </div>
+                </div>
+
+                <div class="col-9 mt-5 container mr-3">
+                     {%block body%}
+
+                     {%endblock%}
+                </div>
+            </div>
+         {%endif%}
+
+          <div class=" container mt-5">
+           {%block content%}
+
+           {%endblock%}
+
+
+          </div>
+
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+      </body>
+ </html>
+
+
+
+
+

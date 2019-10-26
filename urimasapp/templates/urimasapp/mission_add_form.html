@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'mission_request' %}">My Missions</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Request Mission</li>
+    </ol>
+  </nav>
+
+
+
+<div class="card">
+  <div class="card-header" style="background-color:#006991;">
+    <h5 class="text-white">Request Mission Form</h5>
+  </div>
+  <div class="card-body">
+    <form method="post" id="missionForm" data-schools-url="{% url 'ajax_load_schools' %}" data-department-url="{% url 'ajax_load_department' %}" data-role-url="{% url 'ajax_load_role' %}" novalidate enctype="multipart/form-data">
+       {% csrf_token %}
+        {{ form|crispy }}
+          <div class="mt-3">
+            <button type="submit" class="btn  btnlogin text-white">Submit</button>
+            <a href="" class="btn  btnlogin text-white" role="button">Cancel</a>
+          </div>
+    </form>
+
+  </div>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_category").change(function () {
+      var url = $("#missionForm").attr("data-schools-url");
+      var categoryId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'category': categoryId
+        },
+        success: function (data) {
+          $("#id_school").html(data);
+        }
+      });
+    });
+
+
+    <!--for departments-->
+
+
+    $("#id_category").change(function () {
+      var url = $("#missionForm").attr("data-department-url");
+      var categoryId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'category': categoryId
+        },
+        success: function (data) {
+          $("#id_department").html(data);
+        }
+      });
+    });
+
+
+    <!--for loading Roles-->
+
+
+    $("#id_category").change(function () {
+      var url = $("#missionForm").attr("data-role-url");
+      var categoryId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'category': categoryId
+        },
+        success: function (data) {
+          $("#id_role").html(data);
+        }
+      });
+    });
+  </script>
+
+
+{% endblock %}

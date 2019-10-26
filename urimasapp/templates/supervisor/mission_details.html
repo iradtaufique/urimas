@@ -1,0 +1,97 @@
+ {%extends 'base.html'%}
+ {%load static %}
+   {%block body%}
+
+
+      {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show text-center " role="alert">
+          {{ message }} by {{user.username}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+
+ <!---------------------------------------------------------------------------------------------------------------------------------------->
+                                              <!--mission styling form-->
+ <!---------------------------------------------------------------------------------------------------------------------------------------->
+
+ <img class=" mx-auto d-block mb-2" src="{%static 'img/urlogo.png'%}" style="width:100px; height:100px;">
+ <nav aria-label="breadcrumb">
+    <ol class="breadcrumb justify-content-center">
+      <li class="breadcrumb-item "><h4 class="text-center" > UR In-Country Mission Authorization Form</h4></li>
+      <!--<li class="breadcrumb-item">Request Mission</li>-->
+    </ol>
+  </nav>
+
+     <h6 class="text-center">Mission SerioNo: {{invitation.id}}</h6>
+     <div class="form-row mt-4">
+         <div class="form-group col-md-6 mb-0">
+         <h5 style="color:#006991;" >Personal Information</h5>
+         <div class="mt-5">
+             <p> <b>Issued To:</b> {{invitation.owner}}</p>
+             <p> <b>School:</b> {{invitation.school}}</p>
+             <p> <b>Department:</b> {{invitation.department}}</p>
+             <p> <b>Role</b> {{invitation.role}}</p>
+         </div>
+         </div>
+
+         <div class="form-group col-md-6 mb-0">
+         <h5 style="color:#006991;">Information About Mission</h5>
+         <div class="mt-5">
+             <p> <b>Purpose Of Mission:</b> {{invitation.mission_purpose}}</p>
+             <p> <b>Expected Results:</b> {{invitation.mission_result}}</p>
+             <p> <b>Destination:</b> {{invitation.mission_destination}}</p>
+             <p> <b>Distance in Km (to and from):</b> {{invitation.distance}}</p>
+             <p> <b>Departure Date:</b> {{invitation.departure_date}}</p>
+             <p> <b>Returning Date:</b> {{invitation.returning_date}}</p>
+             <p> <b>Duration of mission(number of days and night):</b> {{invitation.mission_duration}}</p>
+
+         </div>
+         </div>
+
+         <div class="form-group col-md-6 mb-0">
+         <h5 style="color:#006991;" >Information About Transport</h5>
+         <div class="mt-5">
+         <p> <b>Transport Means:</b> {{invitation.transport}}</p>
+         <p> <b>Vehicle Number:</b> in case is for UR</p>
+         <p> <b>Name of Driver</b> {{invitation.destination}}</p>
+         </div>
+         </div>
+
+         <div class="form-group col-md-6 mb-0">
+         <h5 style="color:#006991;" >Information About Supervisor and Authorizer</h5>
+         <div class="mt-5">
+         <p> <b>Name of Supervisor:</b> {{superv.user}}</p>
+         <p> <b>Done at ------ on :</b> date Authorized to </p>
+
+         <p> <b>Authorized by:</b> name of Authorizer</p>
+         </div>
+         </div>
+
+     </div>
+
+             <!--{% if invitation %}-->
+             <!--<embed src="{{ invitation.invitation.url}}" height="500" width="500" type="application/pdf">-->
+             <!--{% endif %}-->
+
+           <div class="justify-content-center">
+             <div class="row">
+                 {% if user.is_authenticated and user.is_supervisor%}
+                <div class="col-1">
+                  <a href="{% url 'change_status' invitation.id %}" class=" text-right btn btnlogin text-white">Approve</a>
+                </div>
+                 {% endif%}
+
+                 {% if user.is_authenticated and user.is_authorizer%}
+                 <div class="col-1">
+                  <a href="{% url 'authorize_mission' invitation.id %}" class=" text-right btn btnlogin text-white">Authorize</a>
+                </div>
+                 {% endif %}
+                <div class="col-10">
+                  <a href="{% url 'reject_mission' invitation.id %}" class=" text-right btn btnlogin text-white">Reject</a>
+                </div>
+             </div>
+           </div>
+
+   {%endblock%}

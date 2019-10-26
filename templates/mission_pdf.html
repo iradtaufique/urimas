@@ -1,0 +1,114 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>MIssion PDF</title>
+    <style type="text/css">
+        @page {
+            size: A4;
+            margin: 1cm;
+
+        }
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 5px;
+            background-color: red;
+        }
+        .table th,
+        .table td {
+            padding: 5px;
+            vertical-align: top;
+            border-top: 1px solid #000;
+            text-align: center;
+        }
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #000;
+        }
+        .table tbody + tbody {
+            border-top: 2px solid #000;
+        }
+        .table .table {
+            background-color: #fff;
+        }
+        .list-group {
+            display: block;
+            width: 100%;
+            list-style: none;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .list-group p {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            list-style: none;
+            font-size: 1.1em;
+        }
+        h1{
+
+         text-align:center;
+         }
+    </style>
+</head>
+<body>
+<img src="C:\Users\N-T\Desktop\Python\urimasfinal\urimasproject\static\img\urlogo.png" style="width:100px; height:100px;">
+
+<h1 class="text-center"  style="color:#006991;" > UR In-Country Mission Authorization Form</h1>
+     <h2 class="text-center">Mission SerioNo: {{invitation.id}}</h2>
+     <div class="form-row mt-4">
+         <div class="form-group col-md-6 mb-0">
+         <h3 style="color:#006991;" >Personal Information</h3>
+         <div class="mt-5">
+             <p> <b>Issued To:</b> {{invitation.owner}}</p>
+             <p> <b>School:</b> {{invitation.school}}</p>
+             <p> <b>Department:</b> {{invitation.department}}</p>
+             <p> <b>Role</b> {{invitation.role}}</p>
+         </div>
+         </div>
+
+         <div class="form-group col-md-6 mb-0">
+         <h3 style="color:#006991;">Information About Mission</h3>
+         <div class="mt-5">
+             <p> <b>Purpose Of Mission:</b> {{invitation.mission_purpose}}</p>
+             <p> <b>Expected Results:</b> {{invitation.mission_result}}</p>
+             <p> <b>Destination:</b> {{invitation.mission_destination}}</p>
+             <p> <b>Distance in Km (to and from):</b> {{invitation.distance}}</p>
+             <p> <b>Departure Date:</b> {{invitation.departure_date}}</p>
+             <p> <b>Returning Date:</b> {{invitation.returning_date}}</p>
+             <p> <b>Duration of mission(number of days and night):</b> {{invitation.mission_duration}}</p>
+
+         </div>
+         </div>
+
+         <div class="form-group col-md-6 mb-0">
+         <h3 style="color:#006991;" >Information About Transport</h3>
+         <div class="mt-5">
+         <p> <b>Transport Means:</b> {{invitation.transport}}</p>
+         <p> <b>Vehicle Number:</b> in case is for UR</p>
+         <p> <b>Name of Driver</b> {{invitation.destination}}</p>
+         </div>
+         </div>
+
+         <div class="form-group col-md-6 mb-0">
+         <h3 style="color:#006991;" >Information About Supervisor and Authorizer</h3>
+         <div class="mt-5">
+         <p> <b>Name of Supervisor:</b> {{invitation.destination}}</p>
+         <p> <b>Done at ------ on :</b> date Authorized to </p>
+         <p> <b>Authorized by:</b> name of Authorizer</p>
+
+             <p> <b>Authorized by:</b>  {{author.user}}</p>
+         </div>
+         </div>
+
+     </div>
+
+
+             <!--<embed src="{{ invitation.invitation.url}}" height="500" width="500" type="application/pdf">-->
+
+
+
+</body>
+</html>
